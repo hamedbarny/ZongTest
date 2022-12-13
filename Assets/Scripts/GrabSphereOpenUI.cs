@@ -2,26 +2,36 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+/// <summary>
+/// Enable/Disable Canvas UI whenever public static variable SphereIsGrabbed Changes
+/// </summary>
+
+
 public class GrabSphereOpenUI : MonoBehaviour
 {
-    [SerializeField] GameObject theSphere, canvasUI;
+
+    [SerializeField] private GameObject canvasUI;
+    [SerializeField] private Animator sphereAnimator;
     private bool flag = true;
-    void Update()
+
+    private void Update()
     {
-        if (StaticVariables.SphereIsGrabbed && flag)
+        if (StaticVariables.sphereIsGrabbed && flag)
         {
-            theSphere.GetComponent<Animator>().Play("SphereGrabAnim");
+            sphereAnimator.Play("SphereGrabAnim");
+            Invoke(nameof(ToggleCanvasUI), 0.1f);
             flag = false;
-            Invoke(nameof(ToggleCanvasUI), 0.65f);
         }
-        if (!StaticVariables.SphereIsGrabbed && !flag)
+        if (!StaticVariables.sphereIsGrabbed && !flag)
         {
-            theSphere.GetComponent<Animator>().Play("SphereUnGrabAnim");
-            flag = true;
+            sphereAnimator.Play("SphereUnGrabAnim");
             Invoke(nameof(ToggleCanvasUI), 0);
+            flag = true;
         }
     }
 
+    // method for Enable/Disable Canvas UI
     private void ToggleCanvasUI()
     {
         if (!canvasUI.activeInHierarchy) canvasUI.SetActive(true);
