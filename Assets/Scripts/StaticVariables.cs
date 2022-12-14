@@ -9,12 +9,15 @@ using UnityEngine;
 /// 
 public class StaticVariables : MonoBehaviour
 {
-    // bool to check if the Sphere is grabbed or not
+    //Bool to check if the Sphere is grabbed or not
     public static bool sphereIsGrabbed = false;
 
-    //bool to check if we clicked Done Btn on Instrument >> Page canvas UI
+    //Bool to check if we clicked Done Btn on Instrument >> Page canvas UI
     public static bool instrumentPageDone = false;
 
-    //bool to save selected color of Sphere
+    //Int to save selected color of Sphere
     public static int selectedSphereColor = 1;
+
+    //Int to determine if sphere is in any box or no >> 0-none/1-boxA/2-boxB/3-boxC
+    public static int isSphereHitBox = 0;
 }

@@ -15,6 +15,10 @@ public class GrabSphereOpenUI : MonoBehaviour
     [SerializeField] private Animator sphereAnimator;
     private bool flag = true;
 
+    private void OnEnable()
+    {
+       flag = true;
+    }
     private void Update()
     {
         if (StaticVariables.sphereIsGrabbed && flag)

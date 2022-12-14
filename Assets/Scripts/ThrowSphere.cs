@@ -24,11 +24,11 @@ public class ThrowSphere : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButton(0) && Time.time >= timeToFire)
+        if (StaticVariables.isSphereHitBox == 0 && Input.GetMouseButton(0) && Time.time >= timeToFire)
         {
             timeToFire = Time.time + 1 / fireRate;
             ThrowTheSphere();
-            
+
         }
     }
     void ToggleProjectile() //turn off the in-hand sphere for visual purposes
@@ -59,10 +59,14 @@ public class ThrowSphere : MonoBehaviour
     {
         var projectileObj = Instantiate(projectile, firePoint.position, cam.transform.rotation);
         projectileObj.transform.localScale = new Vector3(.5f, .5f, .5f);
+
+        projectileObj.GetComponent<WhichBox>().enabled = true;
+
         Rigidbody rb = projectileObj.GetComponent<Rigidbody>();
         rb.isKinematic = false;
         rb.velocity = (destination - firePoint.position).normalized * projectileSpeed;
         rb.AddForce(0, 20, 0);
+
         projectile.SetActive(false);
         Invoke(nameof(ToggleProjectile), 3);
         Destroy(projectileObj, 3);

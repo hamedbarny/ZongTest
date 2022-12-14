@@ -16,6 +16,7 @@ using UnityEngine.UI;
 
 public class FirstPersonController : MonoBehaviour
 {
+
     private Rigidbody rb;
 
     #region Camera Movement Variables
@@ -133,6 +134,7 @@ public class FirstPersonController : MonoBehaviour
 
     private void Awake()
     {
+        
         rb = GetComponent<Rigidbody>();
 
         crosshairObject = GetComponentInChildren<Image>();
@@ -202,8 +204,10 @@ public class FirstPersonController : MonoBehaviour
 
     private void Update()
     {
-        #region Camera
 
+
+        #region Camera
+        
         // Control camera movement
         if(cameraCanMove)
         {
@@ -370,6 +374,14 @@ public class FirstPersonController : MonoBehaviour
 
         if (playerCanMove)
         {
+            if (rb.velocity.normalized.magnitude > 0)
+            {
+                this.GetComponent<AudioSource>().enabled = true;
+            }
+            else if (rb.velocity.normalized.magnitude <= 0)
+            {
+                this.GetComponent<AudioSource>().enabled = false;
+            } 
             // Calculate how fast we should be moving
             Vector3 targetVelocity = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
 
